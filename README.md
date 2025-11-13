@@ -134,6 +134,12 @@ npm run dev
 ```
 Now open 👉 http://localhost:3000 to access FarmNet.
 
+
+## 🧩 System Architecture
+
+  
+![System Architecture](arch_diagram.png)
+
 ## 🌐 How It Works
 
 ### 🧑‍🌾 Farmer Registration & Login
@@ -173,28 +179,6 @@ Now open 👉 http://localhost:3000 to access FarmNet.
 
 ---
 
-
-
-## 🧠 Architectural Pattern
-
-FarmNet follows a Layered MVC Pattern with Blockchain Integration — combining:
-
-MVC for web application logic
-
-Decentralized ledger for trust and traceability
-
-Load balancing for scalability
-
-Service abstraction for maintainability
-
-## 🧩 System Architecture
-
-  
-
-
-
-
-👨‍💻 Developed By
 
 Priya Kumari
 Final Year Project – Blockchain-Enabled Agricultural Marketplace
