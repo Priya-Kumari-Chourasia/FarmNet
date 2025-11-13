@@ -179,6 +179,3 @@ Now open 👉 http://localhost:3000 to access FarmNet.
 
 ---
 
-
-Priya Kumari
-Final Year Project – Blockchain-Enabled Agricultural Marketplace
