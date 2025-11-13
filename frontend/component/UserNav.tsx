@@ -1,24 +1,45 @@
 "use client";
-import { UserCircle, MapPin, ShoppingCart, LogOut, Wallet } from "lucide-react";
+import {
+  UserCircle,
+  MapPin,
+  ShoppingCart,
+  LogOut,
+  Wallet,
+} from "lucide-react";
 import Link from "next/link";
-import React, { useState ,useEffect} from "react";
+import React, { useState, useEffect } from "react";
 import { useCart } from "@/context/CartContext";
-import { connectWallet } from "../src/utils/web3.js"; // adjust the path if needed
+import { connectWallet } from "../src/utils/web3.js"; // adjust path if needed
 
 const UserNav = () => {
   const { cart } = useCart();
   const [account, setAccount] = useState<string | null>(null);
   const [isMetaMaskAvailable, setIsMetaMaskAvailable] = useState(false);
+  const [role, setRole] = useState<"farmer" | "user" | null>(null);
 
-  // Check for MetaMask on client side
+  // ✅ Check for MetaMask on client side
   useEffect(() => {
     if (typeof window !== "undefined" && (window as any).ethereum) {
       setIsMetaMaskAvailable(true);
     }
   }, []);
 
+  // ✅ Detect login role from localStorage
+  useEffect(() => {
+    if (typeof window !== "undefined") {
+      const storedFarmer = localStorage.getItem("farmer");
+      const storedUser = localStorage.getItem("user");
 
-const handleConnectWallet = async () => {
+      if (storedFarmer) {
+        setRole("farmer");
+      } else if (storedUser) {
+        setRole("user");
+      }
+    }
+  }, []);
+
+  // ✅ Connect MetaMask wallet
+  const handleConnectWallet = async () => {
     if (!isMetaMaskAvailable) {
       alert("Please install MetaMask!");
       return;
@@ -27,10 +48,14 @@ const handleConnectWallet = async () => {
     const acc = await connectWallet();
     if (acc) setAccount(acc);
   };
-  // Shorten the address for display
+
+  // ✅ Shorten wallet address for display
   const shortAccount = account
     ? `${account.substring(0, 6)}...${account.substring(account.length - 4)}`
     : null;
+
+  // ✅ Role label display
+  const roleLabel = role === "farmer" ? "👨‍🌾 Farmer" : role === "user" ? "🧑‍💼 User" : "";
 
   return (
     <nav className="sticky top-0 left-0 flex font-inter z-30 backdrop-blur-md bg-white w-full shadow-md">
@@ -40,7 +65,7 @@ const handleConnectWallet = async () => {
         </h1>
       </div>
 
-      <div className="flex justify-end mr-5 gap-4 py-2">
+      <div className="flex justify-end mr-5 gap-4 py-2 items-center">
         <Link href="/landing/dashboard">
           <div className="flex gap-2 cursor-pointer">
             <UserCircle size={24} />
@@ -67,13 +92,18 @@ const handleConnectWallet = async () => {
           </div>
         </Link>
 
-        {/* Connect Wallet Button */}
+        {/* 🦊 Connect Wallet Button */}
         <div
-          className="flex gap-2 cursor-pointer items-center bg-yellow-500 text-white px-3 py-1 rounded hover:bg-yellow-600 transition"
+          className="flex flex-col items-center bg-yellow-500 text-white px-3 py-1 rounded hover:bg-yellow-600 cursor-pointer transition"
           onClick={handleConnectWallet}
         >
-          <Wallet size={20} />
-          <p>{account ? shortAccount : "Connect Wallet"}</p>
+          <div className="flex items-center gap-2">
+            <Wallet size={20} />
+            <p>{account ? shortAccount : "Connect Wallet"}</p>
+          </div>
+          {account && (
+            <span className="text-[11px] text-white/90 mt-1">{roleLabel}</span>
+          )}
         </div>
 
         <Link href="/userlogin">
