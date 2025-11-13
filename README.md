@@ -1,4 +1,4 @@
-🧑‍🌾 FarmNet – Blockchain-Based Agricultural Marketplace
+# 🧑‍🌾 FarmNet – Blockchain-Based Agricultural Marketplace
 
 FarmNet is a blockchain-powered decentralized marketplace that directly connects farmers and consumers, ensuring transparency, traceability, and fair trade.
 Built with Next.js, Node.js, Express.js, MongoDB, and Hardhat (Local Ethereum Network), it uses smart contracts to secure and verify transactions.
